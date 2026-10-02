@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My AI Profile Prompt</title>
+<meta name="robots" content="noindex">
+<style>
+  /* Colour tokens: neutral navy/grey so the page works for IMC and IMS */
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --ink: #1c2430;
+    --muted: #5b6573;
+    --line: #dde1e7;
+    --accent: #1f4e79;
+    --accent-hover: #173b5c;
+    --ok: #2e7d32;
+    --note-bg: #fff8e1;
+    --note-ink: #6d4c00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12161c;
+      --card: #1b2129;
+      --ink: #e6e9ee;
+      --muted: #9aa4b2;
+      --line: #2c3440;
+      --accent: #5b9bd5;
+      --accent-hover: #7ab0e0;
+      --ok: #66bb6a;
+      --note-bg: #2a2410;
+      --note-ink: #f0d58a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12161c; --card: #1b2129; --ink: #e6e9ee; --muted: #9aa4b2; --line: #2c3440;
+    --accent: #5b9bd5; --accent-hover: #7ab0e0; --ok: #66bb6a; --note-bg: #2a2410; --note-ink: #f0d58a;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+
+  /* The three steps */
+  ol.steps { padding-left: 1.3em; margin: 0 0 20px; }
+  ol.steps li { margin-bottom: 8px; }
+  ol.steps b { color: var(--accent); }
+
+  .note {
+    background: var(--note-bg);
+    color: var(--note-ink);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+
+  /* Big copy button: the whole point of the page on a phone */
+  .copy {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .copy:hover { background: var(--accent-hover); }
+  .copy.done { background: var(--ok); }
+
+  .prompt {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    margin: 0 0 16px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>My AI Profile</h1>
+  <p class="sub">One prompt. AI interviews you, then writes your settings. About 15 minutes.</p>
+
+  <ol class="steps">
+    <li><b>Copy</b> the prompt with the button below.</li>
+    <li><b>Paste</b> it into a new chat in your <b>company</b> ChatGPT account and answer its questions.</li>
+    <li><b>Save</b> what it writes: ChatGPT Settings &gt; Personalization &gt; Custom instructions.</li>
+  </ol>
+
+  <div class="note">Company work goes in your company ChatGPT account. Never a personal one.</div>
+
+  <button class="copy" id="copyBtn" type="button">Copy prompt</button>
+
+  <!-- The prompt text. Keep in sync with "My AI Profile Prompt.docx". -->
+  <pre class="prompt" id="prompt">I want you to write custom instructions for my AI settings, so you know who I am and how to work with me every time we talk.
+
+First, interview me.
+- Ask me 10 to 15 questions in total, in 3 rounds of about 5. Wait for my answers before starting the next round.
+- Use multiple choice whenever you can. Number each question, letter each option (A, B, C...), and always include "Other: ____" as the last option, so I can answer like "1B, 2A, 3 Other: service calls." Use a short-answer question only when multiple choice won't work.
+- Cover: my role and what I'm responsible for day to day; who and what I manage (people, crews, jobs, equipment, budgets); the tasks that take up most of my time; what I'd most like help with; how I like answers (length, format, tone, level of detail); trade terms you should know; what matters most to me at work; anything you should never do.
+
+Rules for the whole conversation:
+- Never assume anything about me. If something is unclear, or I skipped a question, ask me. I'd rather you ask every time than state a guess as fact.
+- If you ever have to infer something, label it ASSUMPTION so I can check it.
+- Don't ask for, or include, passwords, pay, personal ID numbers or customer details.
+
+When the interview is done:
+1. Show me a short summary of what you learned and ask me to correct anything wrong.
+2. Once I confirm, write my custom instructions as one block of text in a single copy box, ready to paste into my settings. Start with who I am and what I do, then how I want you to respond.
+3. Write it in first person, in plain language, under 1,500 characters.
+4. Include this rule, word for word: "Do not make assumptions. If you are unsure or missing information, ask me. Label anything you inferred as an ASSUMPTION."
+
+Start with round 1.</pre>
+
+  <button class="copy" id="copyBtn2" type="button">Copy prompt</button>
+</main>
+
+<script>
+  // Copy the prompt text. The Clipboard API needs HTTPS (GitHub Pages has it);
+  // the textarea fallback covers older phones and in-app QR browsers.
+  function copyPrompt(btn) {
+    var text = document.getElementById('prompt').textContent;
+    var done = function () {
+      btn.textContent = 'Copied! Now paste it into ChatGPT';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Copy prompt'; btn.classList.remove('done'); }, 4000);
+    };
+    var fallback = function () {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length); // iOS needs an explicit range
+      try { document.execCommand('copy'); done(); }
+      catch (e) { btn.textContent = 'Press and hold the text to copy it'; }
+      document.body.removeChild(ta);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+  document.getElementById('copyBtn').addEventListener('click', function () { copyPrompt(this); });
+  document.getElementById('copyBtn2').addEventListener('click', function () { copyPrompt(this); });
+</script>
+</body>
+</html>
