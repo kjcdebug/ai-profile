@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chief of Staff Prompt</title>
+<title>Daily Brief Prompt</title>
 <meta name="robots" content="noindex">
 <!--
-  Public page (GitHub Pages) behind the AI Mass "Chief of Staff" QR code.
+  Public page (GitHub Pages) behind the AI Mass "Daily Brief" QR code. The folder is
+  still /chief-of-staff/ on purpose: renaming it would break the printed QR code.
   Same look and copy-button behaviour as the My AI Profile page one folder up.
   Nothing company-internal goes on this page: it is on the open internet.
-  Keep the prompt text in sync with the handout ("Chief of Staff - Handout.md").
+  Keep the prompt text in sync with the handout ("2026-10-09 - Daily Brief Handout.md").
 -->
 <style>
   /* Colour tokens: neutral navy/grey so the page works for IMC and IMS */
@@ -102,11 +103,11 @@
 </head>
 <body>
 <main>
-  <h1>My Chief of Staff</h1>
-  <p class="sub">One prompt. AI reads your email and calendar and briefs you on your day. About 10 minutes to set up.</p>
+  <h1>My Daily Brief</h1>
+  <p class="sub">Hire yourself a chief of staff. It reads your email and calendar so your morning starts with a plan, not a pile. About 10 minutes to set up.</p>
 
   <ol class="steps">
-    <li><b>Connect Outlook</b> (one time): in ChatGPT, open <b>Plugins</b>, search <b>Outlook</b>, and add <b>Outlook Email</b> and <b>Outlook Calendar</b>. Sign in and click <b>Accept</b>.</li>
+    <li><b>Connect Outlook</b> (one time): in ChatGPT, open <b>Plugins</b>, search <b>Outlook</b>, and add <b>Outlook Email</b> and <b>Outlook Calendar</b> (and <b>Microsoft Teams</b> if you use it). Sign in and click <b>Accept</b>.</li>
     <li><b>Copy</b> the prompt with the button below.</li>
     <li><b>Paste</b> it into a new chat in your <b>company</b> ChatGPT account and send it.</li>
     <li><b>Check</b> the brief against your real inbox and calendar. Tell it what to fix ("shorter," "skip newsletters").</li>
@@ -119,19 +120,21 @@
 
   <button class="copy" id="copyBtn" type="button">Copy prompt</button>
 
-  <!-- The prompt text. Keep in sync with "Chief of Staff - Handout.md". -->
-  <pre class="prompt" id="prompt">Act as my chief of staff. Use my Outlook email and calendar to brief me on my day.
+  <!-- The prompt text. Keep in sync with "2026-10-09 - Daily Brief Handout.md". -->
+  <pre class="prompt" id="prompt">Act as my chief of staff. Use my Outlook email and calendar (and Teams, if it's connected) to brief me on my day.
 
 Give me:
-1. Today: each meeting with the time, who is in it, and anything I should prepare or bring.
-2. Needs me: emails from the last 24 hours (since Friday morning if today is Monday) that need a reply, a decision or an action from me. Most urgent first, one line each, with who it is from.
-3. Loose ends: anything I said I would do, in an email or a meeting, that I have not closed yet.
-4. Heads up: anything in the next 3 days I should start on today.
-5. Top 3: the three things I should focus on today, and why.
+1. The one thing: the single most important thing about today, in one sentence.
+2. Today: each meeting with the time, who is in it, and anything I should prepare or bring.
+3. Top 5: the five things I should do today, most important first, one line each. Include decisions only I can make, emails from real people waiting on me (say how many days they've waited), and anything I said I would do that isn't done.
+4. Waiting on others: anything I'm waiting on that is going stale, with how many days.
+5. Heads up: meetings in the next 3 days I haven't prepared for, or anything else I'd otherwise miss. Three at most.
 
 Rules:
 - Keep it to one screen. Short lines, no long paragraphs.
-- Only use what you can actually see in my email and calendar. Never make anything up. If you cannot reach my email or calendar, say so.
+- Say each item once. If it's in the top 5, don't repeat it anywhere else.
+- Only use what you can actually see in my email, calendar and Teams. Never make anything up. If a section has nothing real, leave it out.
+- Skip newsletters, automatic replies and system notifications.
 - Label anything you had to guess as ASSUMPTION.
 - Never send, reply to, forward, delete or accept anything. Just brief me.
 
@@ -139,8 +142,8 @@ End by asking me: "Anything you want me to change in this brief?"</pre>
 
   <button class="copy" id="copyBtn2" type="button">Copy prompt</button>
 
-  <h2>If it says it can't schedule</h2>
-  <p>Keep this page bookmarked and paste the prompt into a new chat each morning. It takes ten seconds and you get the same brief.</p>
+  <h2>Schedule not showing up?</h2>
+  <p>Check that Outlook is connected under Plugins, then send the schedule line again. Still stuck? Bookmark this page and paste the prompt into a new chat in the morning while you sort it out.</p>
 </main>
 
 <script>
