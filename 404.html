@@ -16,7 +16,7 @@
   // If the address holds a Daily Log code, send it to the Daily Log page the normal way.
   (function () {
     var m = decodeURIComponent(location.pathname + location.search + location.hash).match(/d1\.[A-Za-z0-9_-]+/);
-    if (m) location.replace("/ai-profile/daily-log/#" + m[0]);
+    if (m) location.replace("https://kjcdebug.github.io/daily-log/#" + m[0]);
   })();
 </script>
 </head>
